@@ -1,0 +1,23 @@
+{
+  "members": [
+    {
+      "firstName": "Janmejay",
+      "lastName": "Bhuriya",
+      "birthDate": "2015-10-22",
+      "memberStatus": "admin",
+      "address1": "E1003 Ganesh Genesis",
+      "address2": "Ahmedabad",
+      "mobile1": 8618103139,
+      "mobile2": 9376712624
+    },
+    {
+      "firstName": "Kailash",
+      "lastName": "Bhuriya",
+      "birthDate": "1987-01-13",
+      "memberStatus": "member",
+      "address1": "E1003 Ganesh Genesis",
+      "address2": "Ahmedabad",
+      "mobile1": 9016264367
+    }
+  ]
+}
