@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.sm.pojo.Member;
 import com.sm.pojo.MemberList;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,14 +23,16 @@ public class IngestMembers {
     private static MemberList memberList;
 
     static {
-        Path path = Paths.get("src/main/resources/members.json");
-        Stream<String> str = null;
+        InputStream is = IngestMembers.class.getClassLoader().getResourceAsStream("members.json");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String readingLine = "";
         try {
-            str = Files.lines(path, StandardCharsets.UTF_8);
+           while ((readingLine = br.readLine()) != null) {
+               stringBuilder.append(readingLine);
+           }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        str.forEach(stringBuilder::append);
         System.out.println(stringBuilder);
         memberList = gson.fromJson(String.valueOf(stringBuilder), MemberList.class);
 
@@ -39,7 +44,7 @@ public class IngestMembers {
         String tableName = "members";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sm","haresh","hareshy22");
+        Connection con=DriverManager.getConnection("jdbc:mysql://host.docker.internal:3306/sm","haresh","hareshy22");
 
         insertDataIntoMembersTable(con, db, tableName);
 
