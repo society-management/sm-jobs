@@ -3,6 +3,7 @@ package com.sm.jobs;
 import com.google.gson.Gson;
 import com.sm.pojo.Member;
 import com.sm.pojo.MemberList;
+import com.sm.utility.DatabaseProp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,11 +41,13 @@ public class IngestMembers {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
-        String db = "sm";
-        String tableName = "members";
+        String db = DatabaseProp.DatabaseName.getValue();
+        String tableName = DatabaseProp.MemberTable.getValue();
+        String host = DatabaseProp.Host.getValue();
+        String port = DatabaseProp.Port.getValue();
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con=DriverManager.getConnection("jdbc:mysql://host.docker.internal:3306/sm","haresh","hareshy22");
+        Connection con=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,"haresh","hareshy22");
 
         insertDataIntoMembersTable(con, db, tableName);
 
