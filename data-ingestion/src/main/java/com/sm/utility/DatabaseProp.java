@@ -1,4 +1,5 @@
 package com.sm.utility;
+
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
@@ -29,12 +30,10 @@ public enum DatabaseProp {
         return key2Property;
     }
 
-
-
     static {
         try {
             properties = new PropertiesConfiguration("database.properties");
-            for(DatabaseProp pr : DatabaseProp.values()) {
+            for (DatabaseProp pr : DatabaseProp.values()) {
                 if (properties.containsKey(pr.key)) {
                     pr.value = String.join(",", properties.getStringArray(pr.key));
                 }
