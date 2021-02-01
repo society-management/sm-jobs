@@ -45,6 +45,7 @@ public class IngestMembers {
         String tableName = DatabaseProp.MemberTable.getValue();
         String host = DatabaseProp.Host.getValue();
         String port = DatabaseProp.Port.getValue();
+        System.out.println("Just printing key " + DatabaseProp.Host.getKey());
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,"haresh","hareshy22");
