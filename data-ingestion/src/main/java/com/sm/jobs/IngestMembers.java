@@ -1,7 +1,7 @@
 package com.sm.jobs;
 
 import com.google.gson.Gson;
-import com.sm.pojo.Member;
+
 import com.sm.pojo.MemberList;
 import com.sm.utility.DatabaseProp;
 
@@ -9,13 +9,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.sql.*;
 import java.util.Date;
-import java.util.stream.Stream;
 
 public class IngestMembers {
 
@@ -50,10 +46,22 @@ public class IngestMembers {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db,"haresh","hareshy22");
 
+        truncateMembersTable(con, db, tableName);
+
         insertDataIntoMembersTable(con, db, tableName);
 
         showDataFromMembersTable(con, db, tableName);
 
+    }
+
+    private static void truncateMembersTable(Connection con, String db, String tableName) throws SQLException {
+        String insertStatement = getTruncateStatement(db, tableName);
+        PreparedStatement ps = con.prepareStatement(insertStatement);
+        ps.execute();
+    }
+
+    private static String getTruncateStatement(String db, String tableName) {
+        return "truncate table "+db+"."+tableName;
     }
 
     private static void insertDataIntoMembersTable(Connection con, String db, String tableName) throws SQLException {
