@@ -11,6 +11,11 @@ public enum DatabaseProp {
     DatabaseName("mysql.db", "sm"),
     MemberTable("mysql.members.table", "members");
 
+    private static PropertiesConfiguration properties;
+    private String key;
+    private String value;
+    private static Map<String, DatabaseProp> key2Property;
+
     DatabaseProp(String key, String value) {
         this.key = key;
         this.value = value;
@@ -24,10 +29,7 @@ public enum DatabaseProp {
         return key2Property;
     }
 
-    private static PropertiesConfiguration properties;
-    private String key;
-    private String value;
-    private static Map<String, DatabaseProp> key2Property;
+
 
     static {
         try {
